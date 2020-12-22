@@ -50,6 +50,23 @@ mixin _$SplashScreenController on _SplashScreenControllerBase, Store {
     });
   }
 
+  final _$__initializedLocalStorageAtom =
+      Atom(name: '_SplashScreenControllerBase.__initializedLocalStorage');
+
+  @override
+  bool get __initializedLocalStorage {
+    _$__initializedLocalStorageAtom.reportRead();
+    return super.__initializedLocalStorage;
+  }
+
+  @override
+  set __initializedLocalStorage(bool value) {
+    _$__initializedLocalStorageAtom
+        .reportWrite(value, super.__initializedLocalStorage, () {
+      super.__initializedLocalStorage = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
