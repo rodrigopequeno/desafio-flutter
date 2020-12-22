@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:padawan_manual/app/shared/widgets/button/button_widget.dart';
 import '../../shared/widgets/app_bar/app_bar_widget.dart';
 import 'characters_controller.dart';
 
@@ -52,7 +53,13 @@ class _CharactersPageState
                           SizedBox(
                             height: 20,
                           ),
-                          _buildButtonUpdate(),
+                          ButtonWidget(
+                            text: "Update",
+                            onPressed: () async {
+                              await controller.getCharactersApi(
+                                  forceNetwork: true);
+                            },
+                          ),
                         ],
                       ),
                     );
@@ -104,6 +111,10 @@ class _CharactersPageState
                         }
                         var character = characters[index];
                         return ListTile(
+                          onTap: () {
+                            Modular.to.pushNamed('/character/details',
+                                arguments: character);
+                          },
                           title: Text("${character.name}"),
                           subtitle: Text(
                               """Height: ${character.height} - Gender: ${character.gender} - Mass: ${character.mass}"""),
@@ -117,28 +128,6 @@ class _CharactersPageState
           ],
         ));
   }
-
-  Widget _buildButtonUpdate() => Container(
-        width: 120,
-        height: 40,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.white, width: 1),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: FlatButton(
-          color: Theme.of(context).primaryColor,
-          onPressed: () async {
-            await controller.getCharactersApi(forceNetwork: true);
-          },
-          child: Text(
-            "Update",
-            style: Theme.of(context).textTheme.button,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      );
 
   Widget _buildLoading() => Padding(
         padding: const EdgeInsets.all(20.0),

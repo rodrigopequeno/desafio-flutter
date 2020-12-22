@@ -22,7 +22,7 @@ A lista de itens deve exibir as seguintes informações:
 
 Os dados devem ser salvos em banco de dados local para acesso offline e atualizados sempre que a tela for aberta.
 
-### Detalhes do Personagem
+### Detalhes do Personagem ✅
 
 Ao clicar em um item da lista o seu app deve mostrar as informações abaixo:
 
