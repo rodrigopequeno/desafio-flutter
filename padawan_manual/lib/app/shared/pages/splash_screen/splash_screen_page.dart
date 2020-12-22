@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
 import 'splash_screen_controller.dart';
 
 /// Classe responsável pela construção da tela SplashScreen.
@@ -25,14 +28,25 @@ class _SplashScreenPageState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).primaryColor,
-      child: Center(
-        child: SizedBox(
-          height: 200,
-          width: 300,
-          child: Image.asset(
-            'assets/images/logo.png',
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Container(
+          color: Colors.black.withOpacity(0.7),
+          child: Center(
+            child: SizedBox(
+              height: 200,
+              width: 300,
+              child: Image.asset(
+                'assets/images/logo.png',
+              ),
+            ),
           ),
         ),
       ),
