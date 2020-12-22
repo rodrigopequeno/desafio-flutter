@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
-
 /// Classe responsável por construir um botão personalizado.
 class ButtonWidget extends StatelessWidget {
   final String text;

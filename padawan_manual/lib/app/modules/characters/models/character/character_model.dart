@@ -1,43 +1,32 @@
 import 'package:hive/hive.dart';
+import 'package:mobx/mobx.dart';
 
 import '../../../../shared/utils/constants.dart';
 
 part 'character_model.g.dart';
+part 'character_model_adapter.dart';
 
-@HiveType(typeId: 0)
-class CharacterModel extends HiveObject {
-  @HiveField(0)
+class CharacterModel = _CharacterModelBase with _$CharacterModel;
+
+abstract class _CharacterModelBase with Store {
   int id;
-  @HiveField(1)
   String name;
-  @HiveField(2)
   String height;
-  @HiveField(3)
   String mass;
-  @HiveField(4)
   String hairColor;
-  @HiveField(5)
   String skinColor;
-  @HiveField(6)
   String eyeColor;
-  @HiveField(7)
   String birthYear;
-  @HiveField(8)
   String gender;
-  @HiveField(9)
   String homeWorld;
-  @HiveField(10)
   List<String> species = <String>[];
-  @HiveField(11)
   String url;
-  @HiveField(12)
-  bool isFavorite;
-  @HiveField(13)
   String homeWorldUrl;
-  @HiveField(14)
   List<String> speciesUrl;
+  @observable
+  bool isFavorite = false;
 
-  CharacterModel({
+  _CharacterModelBase({
     this.id,
     this.name,
     this.height,
@@ -58,7 +47,8 @@ class CharacterModel extends HiveObject {
   final regExpUrl = RegExp(kStandardUrlRegex);
   final regExpId = RegExp(r"\d{1,3}");
 
-  CharacterModel.fromMap(Map<String, dynamic> map) {
+  // ignore: unused_element
+  _CharacterModelBase.fromMap(Map<String, dynamic> map) {
     name = map['name'];
     height = map['height'];
     mass = map['mass'];
@@ -99,6 +89,11 @@ class CharacterModel extends HiveObject {
     data['homeWorldUrl'] = homeWorldUrl;
     data['speciesUrl'] = speciesUrl;
     return data;
+  }
+
+  @action
+  void setFavorite() {
+    isFavorite = !isFavorite;
   }
 
   @override

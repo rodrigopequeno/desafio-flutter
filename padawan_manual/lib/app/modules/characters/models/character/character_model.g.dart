@@ -3,81 +3,45 @@
 part of 'character_model.dart';
 
 // **************************************************************************
-// TypeAdapterGenerator
+// StoreGenerator
 // **************************************************************************
 
-class CharacterModelAdapter extends TypeAdapter<CharacterModel> {
-  @override
-  final int typeId = 0;
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+
+mixin _$CharacterModel on _CharacterModelBase, Store {
+  final _$isFavoriteAtom = Atom(name: '_CharacterModelBase.isFavorite');
 
   @override
-  CharacterModel read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return CharacterModel(
-      id: fields[0] as int,
-      name: fields[1] as String,
-      height: fields[2] as String,
-      mass: fields[3] as String,
-      hairColor: fields[4] as String,
-      skinColor: fields[5] as String,
-      eyeColor: fields[6] as String,
-      birthYear: fields[7] as String,
-      gender: fields[8] as String,
-      homeWorld: fields[9] as String,
-      species: (fields[10] as List)?.cast<String>(),
-      url: fields[11] as String,
-      isFavorite: fields[12] as bool,
-      homeWorldUrl: fields[13] as String,
-      speciesUrl: (fields[14] as List)?.cast<String>(),
-    );
+  bool get isFavorite {
+    _$isFavoriteAtom.reportRead();
+    return super.isFavorite;
   }
 
   @override
-  void write(BinaryWriter writer, CharacterModel obj) {
-    writer
-      ..writeByte(15)
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
-      ..write(obj.name)
-      ..writeByte(2)
-      ..write(obj.height)
-      ..writeByte(3)
-      ..write(obj.mass)
-      ..writeByte(4)
-      ..write(obj.hairColor)
-      ..writeByte(5)
-      ..write(obj.skinColor)
-      ..writeByte(6)
-      ..write(obj.eyeColor)
-      ..writeByte(7)
-      ..write(obj.birthYear)
-      ..writeByte(8)
-      ..write(obj.gender)
-      ..writeByte(9)
-      ..write(obj.homeWorld)
-      ..writeByte(10)
-      ..write(obj.species)
-      ..writeByte(11)
-      ..write(obj.url)
-      ..writeByte(12)
-      ..write(obj.isFavorite)
-      ..writeByte(13)
-      ..write(obj.homeWorldUrl)
-      ..writeByte(14)
-      ..write(obj.speciesUrl);
+  set isFavorite(bool value) {
+    _$isFavoriteAtom.reportWrite(value, super.isFavorite, () {
+      super.isFavorite = value;
+    });
+  }
+
+  final _$_CharacterModelBaseActionController =
+      ActionController(name: '_CharacterModelBase');
+
+  @override
+  void setFavorite() {
+    final _$actionInfo = _$_CharacterModelBaseActionController.startAction(
+        name: '_CharacterModelBase.setFavorite');
+    try {
+      return super.setFavorite();
+    } finally {
+      _$_CharacterModelBaseActionController.endAction(_$actionInfo);
+    }
   }
 
   @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is CharacterModelAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+  String toString() {
+    return '''
+isFavorite: ${isFavorite}
+    ''';
+  }
 }

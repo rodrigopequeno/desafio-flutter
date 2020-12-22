@@ -42,8 +42,6 @@ class HiveService implements ILocalStorageService {
   List<CharacterModel> get characters {
     var box = Hive.box(_boxCharacters);
     var data = box.get(_boxCharacters, defaultValue: <CharacterModel>[]);
-    print(List<CharacterModel>.from(
-        box.get(_boxCharacters, defaultValue: <CharacterModel>[])).length);
     return List<CharacterModel>.from(data);
   }
 
