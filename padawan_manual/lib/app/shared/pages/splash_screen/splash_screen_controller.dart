@@ -46,7 +46,7 @@ abstract class _SplashScreenControllerBase with Store {
   void setupReactions() async {
     //* TODO: VERIFICAR SE OS DADOS FORAM CARREGADOS
     when((_) => (__initializedLocalStorage && _timer || _timerOverflow), () {
-      Modular.to.pushReplacementNamed('/home');
+      Modular.to.pushReplacementNamed('/character');
     });
   }
 }

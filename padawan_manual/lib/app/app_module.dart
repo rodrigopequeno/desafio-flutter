@@ -24,7 +24,7 @@ class AppModule extends MainModule {
           Modular.initialRoute,
           child: (_, args) => SplashScreenPage(),
         ),
-        ModularRouter('/home', module: CharactersModule()),
+        ModularRouter('/character', module: CharactersModule()),
       ];
 
   @override
