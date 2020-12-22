@@ -27,11 +27,16 @@ class CharacterModel extends HiveObject {
   @HiveField(9)
   String homeWorld;
   @HiveField(10)
-  List<String> species;
+  List<String> species = <String>[];
   @HiveField(11)
   String url;
   @HiveField(12)
   bool isFavorite;
+  @HiveField(13)
+  String homeWorldUrl;
+  @HiveField(14)
+  List<String> speciesUrl;
+
   CharacterModel({
     this.id,
     this.name,
@@ -46,6 +51,8 @@ class CharacterModel extends HiveObject {
     this.species,
     this.url,
     this.isFavorite,
+    this.homeWorldUrl,
+    this.speciesUrl,
   });
 
   final regExpUrl = RegExp(kStandardUrlRegex);
@@ -60,10 +67,10 @@ class CharacterModel extends HiveObject {
     eyeColor = map['eye_color'];
     birthYear = map['birth_year'];
     gender = map['gender'];
-    homeWorld = map['homeworld'];
+    homeWorldUrl = map['homeworld'];
     isFavorite = map['isFavorite'] ?? false;
     if (map['species'] != null) {
-      species = map['species'].cast<String>();
+      speciesUrl = map['species'].cast<String>();
     }
     url = map['url'];
     if (regExpUrl.hasMatch(url)) {
@@ -89,11 +96,13 @@ class CharacterModel extends HiveObject {
     data['url'] = url;
     data['isFavorite'] = isFavorite;
     data['id'] = id;
+    data['homeWorldUrl'] = homeWorldUrl;
+    data['speciesUrl'] = speciesUrl;
     return data;
   }
 
   @override
   String toString() {
-    return '''CharacterModel(id: $id, name: $name, height: $height, mass: $mass, hairColor: $hairColor, skinColor: $skinColor, eyeColor: $eyeColor, birthYear: $birthYear, gender: $gender, homeWorld: $homeWorld, species: $species, url: $url, isFavorite: $isFavorite)''';
+    return '''CharacterModel(id: $id, name: $name, height: $height, mass: $mass, hairColor: $hairColor, skinColor: $skinColor, eyeColor: $eyeColor, birthYear: $birthYear, gender: $gender, homeWorld: $homeWorld, species: $species, url: $url, isFavorite: $isFavorite, homeWorldUrl: $homeWorldUrl, speciesUrl: $speciesUrl)''';
   }
 }

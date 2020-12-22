@@ -30,13 +30,15 @@ class CharacterModelAdapter extends TypeAdapter<CharacterModel> {
       species: (fields[10] as List)?.cast<String>(),
       url: fields[11] as String,
       isFavorite: fields[12] as bool,
+      homeWorldUrl: fields[13] as String,
+      speciesUrl: (fields[14] as List)?.cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, CharacterModel obj) {
     writer
-      ..writeByte(13)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -62,7 +64,11 @@ class CharacterModelAdapter extends TypeAdapter<CharacterModel> {
       ..writeByte(11)
       ..write(obj.url)
       ..writeByte(12)
-      ..write(obj.isFavorite);
+      ..write(obj.isFavorite)
+      ..writeByte(13)
+      ..write(obj.homeWorldUrl)
+      ..writeByte(14)
+      ..write(obj.speciesUrl);
   }
 
   @override
