@@ -29,7 +29,13 @@ abstract class _CharactersControllerBase with Store {
   String search;
 
   @observable
+  int filter = 0;
+
+  @observable
   String errorMessage;
+
+  @observable
+  String favoriteMessage;
 
   @computed
   bool get isReady => characters != null;
@@ -46,14 +52,26 @@ abstract class _CharactersControllerBase with Store {
 
   @computed
   ObservableList<CharacterModel> get charactersFiltered {
+    var filtered = characters;
+    if (filter == 1) {
+      filtered = characters
+          .where((element) => element.isFavorite)
+          .toList()
+          .asObservable();
+    } else if (filter == 2) {
+      filtered = characters
+          .where((element) => !element.isFavorite)
+          .toList()
+          .asObservable();
+    }
     if (search != null && search.isNotEmpty) {
-      return characters
+      return filtered
           ?.where((element) => removeDiacritics(element.name.toLowerCase())
               .contains(removeDiacritics(search.toLowerCase())))
           ?.toList()
           ?.asObservable();
     }
-    return characters;
+    return filtered;
   }
 
   @action
@@ -62,9 +80,25 @@ abstract class _CharactersControllerBase with Store {
   }
 
   @action
+  void setFilter(int value) {
+    filter = value;
+  }
+
+  @action
   void setCharacters(List<CharacterModel> value) {
     characters = value;
     _localStorage.characters = characters.asObservable();
+  }
+
+  void setFavorite(CharacterModel character) {
+    var favorites = _localStorage.favorites;
+    character.setFavorite();
+    if (character.isFavorite) {
+      favorites.add(character.id);
+    } else {
+      favorites.remove(character.id);
+    }
+    _localStorage.favorites = favorites;
   }
 
   Future<void> getCharactersApi({bool forceNetwork = false}) async {
@@ -74,11 +108,14 @@ abstract class _CharactersControllerBase with Store {
             .fetchCharacters(page: forceNetwork ? 1 : nextPage)
             .then((value) {
           count = value['count'];
-          print(value['next']);
           var newCharacters = (value['results'] as List)
               .map((e) => CharacterModel.fromMap(e))
               .toList()
               .asObservable();
+          newCharacters
+              .map((element) => element.isFavorite =
+                  _localStorage.favorites.contains(element.id))
+              .toList();
           if (characters != null && !forceNetwork) {
             var filtered = newCharacters
                 .where((element) => !characters

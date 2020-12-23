@@ -22,12 +22,14 @@ class HiveService implements ILocalStorageService {
   static bool _first = true;
 
   static final String _boxCharacters = 'characters';
+  static final String _boxFavorites = 'favorites';
 
   static Future<void> initialize() async {
     if (_first) {
       await Hive.initFlutter();
       Hive.registerAdapter<CharacterModel>(CharacterModelAdapter());
       await Hive.openBox(_boxCharacters);
+      await Hive.openBox(_boxFavorites);
       _first = false;
     }
   }
@@ -35,7 +37,9 @@ class HiveService implements ILocalStorageService {
   @override
   void clearLocalData() {
     var box1 = Hive.box(_boxCharacters);
+    var box2 = Hive.box(_boxFavorites);
     box1.clear();
+    box2.clear();
   }
 
   @override
@@ -49,5 +53,18 @@ class HiveService implements ILocalStorageService {
   set characters(List characters) {
     var box = Hive.box(_boxCharacters);
     box.put(_boxCharacters, characters);
+  }
+
+  @override
+  List<int> get favorites {
+    var box = Hive.box(_boxFavorites);
+    var data = box.get(_boxFavorites, defaultValue: <int>[]);
+    return List<int>.from(data);
+  }
+
+  @override
+  set favorites(List favorites) {
+    var box = Hive.box(_boxFavorites);
+    box.put(_boxFavorites, favorites);
   }
 }

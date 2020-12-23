@@ -8,6 +8,7 @@ class AppBarWidget extends PreferredSize {
   final Widget content;
   final double radius;
   final Color color;
+  final List<Widget> actions;
 
   AppBarWidget({
     this.elevation,
@@ -16,6 +17,7 @@ class AppBarWidget extends PreferredSize {
     this.content,
     this.radius = 15,
     this.color,
+    this.actions,
   });
 
   @override
@@ -37,6 +39,7 @@ class AppBarWidget extends PreferredSize {
         height: 40,
       ),
       flexibleSpace: content,
+      actions: actions,
       elevation: elevation,
       centerTitle: true,
     );

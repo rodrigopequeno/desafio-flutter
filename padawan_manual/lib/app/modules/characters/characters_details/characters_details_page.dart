@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../../shared/utils/extensions/string.dart';
 import '../../../shared/widgets/app_bar/app_bar_widget.dart';
 import '../../../shared/widgets/button/button_widget.dart';
+import '../characters_controller.dart';
 import '../models/character/character_model.dart';
 import 'characters_details_controller.dart';
 
@@ -32,10 +33,23 @@ class _CharactersDetailsPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(),
+      appBar: AppBarWidget(
+        actions: [
+          Observer(
+            builder: (context) => IconButton(
+              icon: widget.character.isFavorite
+                  ? Icon(Icons.favorite)
+                  : Icon(Icons.favorite_border),
+              onPressed: () {
+                Modular.get<CharactersController>()
+                    .setFavorite(widget.character);
+              },
+            ),
+          ),
+        ],
+      ),
       body: Observer(builder: (_) {
         var character = widget.character;
-        print(character);
         if (controller.errorMessage != null) {
           return Center(
             child: Column(

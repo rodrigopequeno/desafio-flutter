@@ -73,6 +73,21 @@ mixin _$CharactersController on _CharactersControllerBase, Store {
     });
   }
 
+  final _$filterAtom = Atom(name: '_CharactersControllerBase.filter');
+
+  @override
+  int get filter {
+    _$filterAtom.reportRead();
+    return super.filter;
+  }
+
+  @override
+  set filter(int value) {
+    _$filterAtom.reportWrite(value, super.filter, () {
+      super.filter = value;
+    });
+  }
+
   final _$errorMessageAtom =
       Atom(name: '_CharactersControllerBase.errorMessage');
 
@@ -104,6 +119,17 @@ mixin _$CharactersController on _CharactersControllerBase, Store {
   }
 
   @override
+  void setFilter(int value) {
+    final _$actionInfo = _$_CharactersControllerBaseActionController
+        .startAction(name: '_CharactersControllerBase.setFilter');
+    try {
+      return super.setFilter(value);
+    } finally {
+      _$_CharactersControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setCharacters(List<CharacterModel> value) {
     final _$actionInfo = _$_CharactersControllerBaseActionController
         .startAction(name: '_CharactersControllerBase.setCharacters');
@@ -119,6 +145,7 @@ mixin _$CharactersController on _CharactersControllerBase, Store {
     return '''
 characters: ${characters},
 search: ${search},
+filter: ${filter},
 errorMessage: ${errorMessage},
 isReady: ${isReady},
 isMaximum: ${isMaximum},

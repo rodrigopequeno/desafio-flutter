@@ -39,7 +39,7 @@ Ao clicar em um item da lista o seu app deve mostrar as informações abaixo:
 
 A busca pelo nome do planeta e da espécie deve ser feita em paralelo.
 
-### Favoritos
+### Favoritos ✅
 
 Na lista e nos detalhes deve ser possível adicionar e remover um personagem a sua lista de favoritos. Tambem deve ser possível filtrar quais personagens foram favoritados na lista principal.
 

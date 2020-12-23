@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:padawan_manual/app/shared/widgets/button/button_widget.dart';
+
 import '../../shared/widgets/app_bar/app_bar_widget.dart';
+import '../../shared/widgets/button/button_widget.dart';
 import 'characters_controller.dart';
 
 class CharactersPage extends StatefulWidget {
@@ -28,12 +29,45 @@ class _CharactersPageState
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                decoration: InputDecoration(hintText: " Search by name"),
-                onChanged: controller.setSearch,
-              ),
-            ),
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: TextField(
+                        decoration:
+                            InputDecoration(hintText: " Search by name"),
+                        onChanged: controller.setSearch,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Observer(builder: (_) {
+                        return DropdownButton(
+                          items: [
+                            DropdownMenuItem(
+                              child: Text("All"),
+                              value: 0,
+                            ),
+                            DropdownMenuItem(
+                              child: Text("Favorite"),
+                              value: 1,
+                            ),
+                            DropdownMenuItem(
+                              child: Text("No favorite"),
+                              value: 2,
+                            ),
+                          ],
+                          onChanged: controller.setFilter,
+                          value: controller.filter,
+                        );
+                      }),
+                    )
+                  ],
+                )),
             Expanded(
               child: Observer(
                 builder: (_) {
@@ -118,6 +152,16 @@ class _CharactersPageState
                           title: Text("${character.name}"),
                           subtitle: Text(
                               """Height: ${character.height} - Gender: ${character.gender} - Mass: ${character.mass}"""),
+                          trailing: Observer(
+                            builder: (context) => IconButton(
+                              icon: character.isFavorite
+                                  ? Icon(Icons.favorite)
+                                  : Icon(Icons.favorite_border),
+                              onPressed: () {
+                                controller.setFavorite(character);
+                              },
+                            ),
+                          ),
                         );
                       },
                     ),
