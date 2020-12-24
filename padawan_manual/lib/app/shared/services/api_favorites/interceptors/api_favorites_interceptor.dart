@@ -19,9 +19,7 @@ class ApiFavoritesInterceptor extends Interceptor {
       var errorList = _localStorage.errorSavingFavorites;
       var data = regExpId.stringMatch(err.request.path);
       var index = int.tryParse(data);
-      if (!errorList.contains(index)) {
-        errorList.add(index);
-      }
+      errorList.add(index);
       _localStorage.errorSavingFavorites = errorList;
     }
     return err;

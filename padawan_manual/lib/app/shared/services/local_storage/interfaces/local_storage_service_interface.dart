@@ -5,8 +5,8 @@ abstract class ILocalStorageService implements Disposable {
   void clearLocalData();
   List<CharacterModel> get characters;
   set characters(List characters);
-  List<int> get favorites;
-  set favorites(List favorites);
-  List<int> get errorSavingFavorites;
-  set errorSavingFavorites(List favorites);
+  Set<int> get favorites;
+  set favorites(Set favorites);
+  Set<int> get errorSavingFavorites;
+  set errorSavingFavorites(Set favorites);
 }

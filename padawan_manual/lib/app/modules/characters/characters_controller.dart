@@ -174,7 +174,7 @@ abstract class _CharactersControllerBase with Store {
 
   Future<void> resendRequestFavoriteError() async {
     var currentErrorFavorites = _localStorage.errorSavingFavorites;
-    _localStorage.errorSavingFavorites = <int>[];
+    _localStorage.errorSavingFavorites = <int>{};
     for (var indexFavorite in currentErrorFavorites) {
       try {
         await _repository.saveFavorite(indexFavorite);

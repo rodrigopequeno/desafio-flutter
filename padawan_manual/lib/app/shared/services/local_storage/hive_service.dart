@@ -58,28 +58,30 @@ class HiveService implements ILocalStorageService {
   }
 
   @override
-  List<int> get favorites {
+  Set<int> get favorites {
     var box = Hive.box(_boxFavorites);
     var data = box.get(_boxFavorites, defaultValue: <int>[]);
-    return List<int>.from(data);
+    return Set<int>.from(data);
   }
 
   @override
-  set favorites(List favorites) {
+  set favorites(Set favorites) {
+    var convertToList = List<int>.from(favorites);
     var box = Hive.box(_boxFavorites);
-    box.put(_boxFavorites, favorites);
+    box.put(_boxFavorites, convertToList);
   }
 
   @override
-  List<int> get errorSavingFavorites {
+  Set<int> get errorSavingFavorites {
     var box = Hive.box(_boxFavorites);
     var data = box.get(_keyErrorSavingFavorites, defaultValue: <int>[]);
-    return List<int>.from(data);
+    return Set<int>.from(data);
   }
 
   @override
-  set errorSavingFavorites(List favorites) {
+  set errorSavingFavorites(Set favorites) {
+    var convertToList = List<int>.from(favorites);
     var box = Hive.box(_boxFavorites);
-    box.put(_keyErrorSavingFavorites, favorites);
+    box.put(_keyErrorSavingFavorites, convertToList);
   }
 }
