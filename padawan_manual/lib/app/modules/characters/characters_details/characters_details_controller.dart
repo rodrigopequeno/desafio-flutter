@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import '../characters_controller.dart';
 import '../models/character/character_model.dart';
 import '../repositories/characters_repository.dart';
 
@@ -12,8 +13,10 @@ class CharactersDetailsController = _CharactersDetailsControllerBase
 
 abstract class _CharactersDetailsControllerBase with Store {
   final CharactersRepository _repository;
+  final CharactersController _charactersController;
 
-  _CharactersDetailsControllerBase(this._repository);
+  _CharactersDetailsControllerBase(
+      this._repository, this._charactersController);
 
   @observable
   String errorMessage;
@@ -44,5 +47,9 @@ abstract class _CharactersDetailsControllerBase with Store {
     } catch (_) {
       errorMessage = "An error occurred, please try again later";
     }
+  }
+
+  Future<void> setFavorite(CharacterModel character) async {
+    await _charactersController.setFavorite(character);
   }
 }

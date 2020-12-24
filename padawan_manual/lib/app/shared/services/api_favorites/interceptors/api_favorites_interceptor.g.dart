@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'api_favorites_service.dart';
+part of 'api_favorites_interceptor.dart';
 
 // **************************************************************************
 // InjectionGenerator
 // **************************************************************************
 
-final $ApiFavoritesService = BindInject(
-  (i) => ApiFavoritesService(i<ApiFavoritesInterceptor>()),
+final $ApiFavoritesInterceptor = BindInject(
+  (i) => ApiFavoritesInterceptor(i<ILocalStorageService>()),
   singleton: true,
   lazy: true,
 );

@@ -1,10 +1,10 @@
-import 'package:diacritic/diacritic.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../shared/services/local_storage/interfaces/local_storage_service_interface.dart';
+import '../../shared/utils/extensions/string.dart';
 import 'models/character/character_model.dart';
 import 'repositories/interfaces/characters_repository_interface.dart';
 
@@ -69,8 +69,10 @@ abstract class _CharactersControllerBase with Store {
     }
     if (search != null && search.isNotEmpty) {
       return filtered
-          ?.where((element) => removeDiacritics(element.name.toLowerCase())
-              .contains(removeDiacritics(search.toLowerCase())))
+          ?.where((element) => element.name
+              .toLowerCase()
+              .normalizeDiacritics()
+              .contains(search.toLowerCase().normalizeDiacritics()))
           ?.toList()
           ?.asObservable();
     }

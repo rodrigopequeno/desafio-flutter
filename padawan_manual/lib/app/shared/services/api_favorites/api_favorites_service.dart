@@ -9,12 +9,13 @@ part 'api_favorites_service.g.dart';
 class ApiFavoritesService extends DioForNative {
   static const kApiUrl =
       "http://private-782d3-starwarsfavorites.apiary-mock.com";
-  ApiFavoritesService()
+  final ApiFavoritesInterceptor _apiFavoritesInterceptor;
+  ApiFavoritesService(this._apiFavoritesInterceptor)
       : super(BaseOptions(
           baseUrl: kApiUrl,
           connectTimeout: 5000,
           receiveTimeout: 5000,
         )) {
-    interceptors.add(ApiFavoritesInterceptor());
+    interceptors.add(_apiFavoritesInterceptor);
   }
 }

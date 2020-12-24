@@ -4,12 +4,17 @@ import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../../local_storage/interfaces/local_storage_service_interface.dart';
 
+part 'api_favorites_interceptor.g.dart';
+
+@Injectable()
 class ApiFavoritesInterceptor extends Interceptor {
   final regExpId = RegExp(r"\d{1,3}");
+  final ILocalStorageService _localStorage;
+
+  ApiFavoritesInterceptor(this._localStorage);
 
   @override
   Future onError(DioError err) async {
-    var _localStorage = Modular.get<ILocalStorageService>();
     if (err.response.statusCode == 400) {
       var errorList = _localStorage.errorSavingFavorites;
       var data = regExpId.stringMatch(err.request.path);
