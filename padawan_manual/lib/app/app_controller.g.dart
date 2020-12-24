@@ -7,7 +7,7 @@ part of 'app_controller.dart';
 // **************************************************************************
 
 final $AppController = BindInject(
-  (i) => AppController(),
+  (i) => AppController(i<ILocalStorageService>()),
   singleton: true,
   lazy: true,
 );

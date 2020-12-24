@@ -1,7 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-
-import 'shared/services/local_storage/hive_service.dart';
+import 'shared/services/local_storage/interfaces/local_storage_service_interface.dart';
 
 part 'app_controller.g.dart';
 
@@ -9,18 +8,17 @@ part 'app_controller.g.dart';
 class AppController = _AppControllerBase with _$AppController;
 
 abstract class _AppControllerBase with Store {
+  final ILocalStorageService _localStorageService;
   @observable
   bool _initializedLocalStorage = false;
 
-  _AppControllerBase() {
-    setupLocalStorage();
-  }
+  _AppControllerBase(this._localStorageService);
 
   @computed
   bool get isReady => _initializedLocalStorage;
 
-  void setupLocalStorage() async {
-    await HiveService.initialize();
+  Future<void> setupLocalStorage() async {
+    await _localStorageService.initialize();
     _initializedLocalStorage = true;
   }
 }

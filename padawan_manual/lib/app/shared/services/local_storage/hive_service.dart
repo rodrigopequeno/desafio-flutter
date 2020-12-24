@@ -9,13 +9,9 @@ part 'hive_service.g.dart';
 
 @Injectable()
 class HiveService implements ILocalStorageService {
-  static final HiveService _singleton = HiveService._internal();
+  final CharacterModelAdapter _characterModelAdapter;
 
-  factory HiveService() {
-    return _singleton;
-  }
-
-  HiveService._internal();
+  HiveService(this._characterModelAdapter);
 
   @override
   void dispose() {}
@@ -26,10 +22,11 @@ class HiveService implements ILocalStorageService {
   static const _boxFavorites = 'favorites';
   static const _keyErrorSavingFavorites = 'errorSavingFavorites';
 
-  static Future<void> initialize() async {
+  @override
+  Future<void> initialize() async {
     if (_first) {
       await Hive.initFlutter();
-      Hive.registerAdapter<CharacterModel>(CharacterModelAdapter());
+      Hive.registerAdapter<CharacterModel>(_characterModelAdapter);
       await Hive.openBox(_boxCharacters);
       await Hive.openBox(_boxFavorites);
       _first = false;

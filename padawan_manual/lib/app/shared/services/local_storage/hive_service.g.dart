@@ -7,7 +7,7 @@ part of 'hive_service.dart';
 // **************************************************************************
 
 final $HiveService = BindInject(
-  (i) => HiveService(),
+  (i) => HiveService(i<CharacterModelAdapter>()),
   singleton: true,
   lazy: true,
 );
