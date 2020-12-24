@@ -40,8 +40,8 @@ class _CharactersDetailsPageState
               icon: widget.character.isFavorite
                   ? Icon(Icons.favorite)
                   : Icon(Icons.favorite_border),
-              onPressed: () {
-                Modular.get<CharactersController>()
+              onPressed: () async {
+                await Modular.get<CharactersController>()
                     .setFavorite(widget.character);
               },
             ),

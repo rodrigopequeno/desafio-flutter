@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'characters_repository.dart';
+part of 'api_favorites_service.dart';
 
 // **************************************************************************
 // InjectionGenerator
 // **************************************************************************
 
-final $CharactersRepository = BindInject(
-  (i) =>
-      CharactersRepository(i<ApiCharactersService>(), i<ApiFavoritesService>()),
+final $ApiFavoritesService = BindInject(
+  (i) => ApiFavoritesService(),
   singleton: true,
   lazy: true,
 );

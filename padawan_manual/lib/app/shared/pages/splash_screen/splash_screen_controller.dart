@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import '../../services/local_storage/hive_service.dart';
+import '../../../app_controller.dart';
 
 part 'splash_screen_controller.g.dart';
 
@@ -14,17 +14,15 @@ class SplashScreenController = _SplashScreenControllerBase
     with _$SplashScreenController;
 
 abstract class _SplashScreenControllerBase with Store {
+  final AppController _appController;
+
   @observable
   bool _timer = false;
 
   @observable
   bool _timerOverflow = false;
 
-  @observable
-  bool __initializedLocalStorage = false;
-
-  _SplashScreenControllerBase() {
-    setupLocalStorage();
+  _SplashScreenControllerBase(this._appController) {
     setupTimer();
     setupTimerOverflow();
     setupReactions();
@@ -38,14 +36,8 @@ abstract class _SplashScreenControllerBase with Store {
     Timer(Duration(seconds: 6), () => _timerOverflow = true);
   }
 
-  void setupLocalStorage() async {
-    await HiveService.initialize();
-    __initializedLocalStorage = true;
-  }
-
   void setupReactions() async {
-    //* TODO: VERIFICAR SE OS DADOS FORAM CARREGADOS
-    when((_) => (__initializedLocalStorage && _timer || _timerOverflow), () {
+    when((_) => (_appController.isReady && _timer || _timerOverflow), () {
       Modular.to.pushReplacementNamed('/character');
     });
   }

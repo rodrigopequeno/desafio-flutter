@@ -1,9 +1,10 @@
 import 'package:diacritic/diacritic.dart';
 import 'package:dio/dio.dart';
-import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import '../../shared/services/local_storage/interfaces/local_storage_service_interface.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mobx/mobx.dart';
 
+import '../../shared/services/local_storage/interfaces/local_storage_service_interface.dart';
 import 'models/character/character_model.dart';
 import 'repositories/interfaces/characters_repository_interface.dart';
 
@@ -18,7 +19,9 @@ abstract class _CharactersControllerBase with Store {
   final ICharactersRepository _repository;
   final ILocalStorageService _localStorage;
 
-  _CharactersControllerBase(this._repository, this._localStorage);
+  _CharactersControllerBase(this._repository, this._localStorage) {
+    resendRequestFavoriteError();
+  }
 
   int count = 0;
 
@@ -90,15 +93,38 @@ abstract class _CharactersControllerBase with Store {
     _localStorage.characters = characters.asObservable();
   }
 
-  void setFavorite(CharacterModel character) {
+  Future<void> setFavorite(CharacterModel character) async {
     var favorites = _localStorage.favorites;
+    var errorSavingFavorites = _localStorage.errorSavingFavorites;
     character.setFavorite();
     if (character.isFavorite) {
       favorites.add(character.id);
+      try {
+        favoriteMessage = await _repository.saveFavorite(character.id);
+      } on DioError catch (e) {
+        if (e.response.statusCode == 400) {
+          favoriteMessage = e.response.data['error_message'];
+        } else {
+          favoriteMessage = e.message.contains("SocketException") &&
+                  e.message.contains("lookup")
+              ? "No connection"
+              : "An error occurred, please try again later";
+        }
+      }
     } else {
       favorites.remove(character.id);
+      errorSavingFavorites.remove(character.id);
+      _localStorage.errorSavingFavorites = errorSavingFavorites;
+      favoriteMessage = "${character.name} removed from favorites";
     }
     _localStorage.favorites = favorites;
+
+    Fluttertoast.showToast(
+      msg: favoriteMessage,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      fontSize: 16.0,
+    );
   }
 
   Future<void> getCharactersApi({bool forceNetwork = false}) async {
@@ -141,6 +167,17 @@ abstract class _CharactersControllerBase with Store {
       // ignore: avoid_catches_without_on_clauses
     } catch (_) {
       errorMessage = "An error occurred, please try again later";
+    }
+  }
+
+  Future<void> resendRequestFavoriteError() async {
+    var currentErrorFavorites = _localStorage.errorSavingFavorites;
+    _localStorage.errorSavingFavorites = <int>[];
+    for (var indexFavorite in currentErrorFavorites) {
+      try {
+        await _repository.saveFavorite(indexFavorite);
+        // ignore: avoid_catches_without_on_clauses
+      } catch (_) {}
     }
   }
 }

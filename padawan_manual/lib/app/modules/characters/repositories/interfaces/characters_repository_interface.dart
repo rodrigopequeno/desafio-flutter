@@ -4,4 +4,5 @@ abstract class ICharactersRepository implements Disposable {
   Future fetchCharacters({int page = 1});
   Future fetchCharacterSpecies(String url);
   Future fetchCharacterHomeWord(String url);
+  Future saveFavorite(int id);
 }

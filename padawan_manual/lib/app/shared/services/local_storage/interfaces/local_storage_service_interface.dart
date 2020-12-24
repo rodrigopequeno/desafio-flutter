@@ -7,4 +7,6 @@ abstract class ILocalStorageService implements Disposable {
   set characters(List characters);
   List<int> get favorites;
   set favorites(List favorites);
+  List<int> get errorSavingFavorites;
+  set errorSavingFavorites(List favorites);
 }

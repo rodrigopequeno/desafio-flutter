@@ -157,8 +157,8 @@ class _CharactersPageState
                               icon: character.isFavorite
                                   ? Icon(Icons.favorite)
                                   : Icon(Icons.favorite_border),
-                              onPressed: () {
-                                controller.setFavorite(character);
+                              onPressed: () async {
+                                await controller.setFavorite(character);
                               },
                             ),
                           ),

@@ -43,7 +43,7 @@ A busca pelo nome do planeta e da espécie deve ser feita em paralelo.
 
 Na lista e nos detalhes deve ser possível adicionar e remover um personagem a sua lista de favoritos. Tambem deve ser possível filtrar quais personagens foram favoritados na lista principal.
 
-##### Adição e Remoção de Favoritos
+##### Adição e Remoção de Favoritos ✅
 
 URL BASE: http://private-782d3-starwarsfavorites.apiary-mock.com/
 

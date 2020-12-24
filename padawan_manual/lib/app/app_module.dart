@@ -7,11 +7,13 @@ import 'modules/characters/characters_module.dart';
 import 'shared/pages/splash_screen/splash_screen_controller.dart';
 import 'shared/pages/splash_screen/splash_screen_page.dart';
 import 'shared/services/api_characters/api_characters_service.dart';
+import 'shared/services/api_favorites/api_favorites_service.dart';
 import 'shared/services/local_storage/hive_service.dart';
 
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
+        $ApiFavoritesService,
         $HiveService,
         $ApiCharactersService,
         $SplashScreenController,

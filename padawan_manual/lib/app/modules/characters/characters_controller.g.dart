@@ -104,6 +104,22 @@ mixin _$CharactersController on _CharactersControllerBase, Store {
     });
   }
 
+  final _$favoriteMessageAtom =
+      Atom(name: '_CharactersControllerBase.favoriteMessage');
+
+  @override
+  String get favoriteMessage {
+    _$favoriteMessageAtom.reportRead();
+    return super.favoriteMessage;
+  }
+
+  @override
+  set favoriteMessage(String value) {
+    _$favoriteMessageAtom.reportWrite(value, super.favoriteMessage, () {
+      super.favoriteMessage = value;
+    });
+  }
+
   final _$_CharactersControllerBaseActionController =
       ActionController(name: '_CharactersControllerBase');
 
@@ -147,6 +163,7 @@ characters: ${characters},
 search: ${search},
 filter: ${filter},
 errorMessage: ${errorMessage},
+favoriteMessage: ${favoriteMessage},
 isReady: ${isReady},
 isMaximum: ${isMaximum},
 charactersFiltered: ${charactersFiltered}

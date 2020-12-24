@@ -7,7 +7,7 @@ part of 'splash_screen_controller.dart';
 // **************************************************************************
 
 final $SplashScreenController = BindInject(
-  (i) => SplashScreenController(),
+  (i) => SplashScreenController(i<AppController>()),
   singleton: true,
   lazy: true,
 );
@@ -47,23 +47,6 @@ mixin _$SplashScreenController on _SplashScreenControllerBase, Store {
   set _timerOverflow(bool value) {
     _$_timerOverflowAtom.reportWrite(value, super._timerOverflow, () {
       super._timerOverflow = value;
-    });
-  }
-
-  final _$__initializedLocalStorageAtom =
-      Atom(name: '_SplashScreenControllerBase.__initializedLocalStorage');
-
-  @override
-  bool get __initializedLocalStorage {
-    _$__initializedLocalStorageAtom.reportRead();
-    return super.__initializedLocalStorage;
-  }
-
-  @override
-  set __initializedLocalStorage(bool value) {
-    _$__initializedLocalStorageAtom
-        .reportWrite(value, super.__initializedLocalStorage, () {
-      super.__initializedLocalStorage = value;
     });
   }
 

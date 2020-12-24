@@ -16,13 +16,15 @@ class HiveService implements ILocalStorageService {
   }
 
   HiveService._internal();
+
   @override
   void dispose() {}
 
   static bool _first = true;
 
-  static final String _boxCharacters = 'characters';
-  static final String _boxFavorites = 'favorites';
+  static const _boxCharacters = 'characters';
+  static const _boxFavorites = 'favorites';
+  static const _keyErrorSavingFavorites = 'errorSavingFavorites';
 
   static Future<void> initialize() async {
     if (_first) {
@@ -66,5 +68,18 @@ class HiveService implements ILocalStorageService {
   set favorites(List favorites) {
     var box = Hive.box(_boxFavorites);
     box.put(_boxFavorites, favorites);
+  }
+
+  @override
+  List<int> get errorSavingFavorites {
+    var box = Hive.box(_boxFavorites);
+    var data = box.get(_keyErrorSavingFavorites, defaultValue: <int>[]);
+    return List<int>.from(data);
+  }
+
+  @override
+  set errorSavingFavorites(List favorites) {
+    var box = Hive.box(_boxFavorites);
+    box.put(_keyErrorSavingFavorites, favorites);
   }
 }

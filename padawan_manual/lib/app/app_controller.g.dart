@@ -19,39 +19,34 @@ final $AppController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AppController on _AppControllerBase, Store {
-  final _$valueAtom = Atom(name: '_AppControllerBase.value');
+  Computed<bool> _$isReadyComputed;
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  bool get isReady => (_$isReadyComputed ??= Computed<bool>(() => super.isReady,
+          name: '_AppControllerBase.isReady'))
+      .value;
+
+  final _$_initializedLocalStorageAtom =
+      Atom(name: '_AppControllerBase._initializedLocalStorage');
+
+  @override
+  bool get _initializedLocalStorage {
+    _$_initializedLocalStorageAtom.reportRead();
+    return super._initializedLocalStorage;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set _initializedLocalStorage(bool value) {
+    _$_initializedLocalStorageAtom
+        .reportWrite(value, super._initializedLocalStorage, () {
+      super._initializedLocalStorage = value;
     });
-  }
-
-  final _$_AppControllerBaseActionController =
-      ActionController(name: '_AppControllerBase');
-
-  @override
-  void increment() {
-    final _$actionInfo = _$_AppControllerBaseActionController.startAction(
-        name: '_AppControllerBase.increment');
-    try {
-      return super.increment();
-    } finally {
-      _$_AppControllerBaseActionController.endAction(_$actionInfo);
-    }
   }
 
   @override
   String toString() {
     return '''
-value: ${value}
+isReady: ${isReady}
     ''';
   }
 }
