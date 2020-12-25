@@ -6,9 +6,8 @@ import 'package:padawan_manual/app/app_controller.dart';
 
 import 'package:padawan_manual/app/app_module.dart';
 import 'package:padawan_manual/app/modules/characters/models/character/character_model.dart';
-import 'package:padawan_manual/app/shared/services/local_storage/interfaces/local_storage_service_interface.dart';
 
-class LocalStorageServiceMock extends Mock implements ILocalStorageService {}
+import 'mocks/local_storage_mock.dart';
 
 // ignore: must_be_immutable
 class CharacterModelAdapterMock extends Mock implements CharacterModelAdapter {}

@@ -13,10 +13,10 @@ void main() {
   group("SplashScreenPage Test", () {
     testWidgets('Has background image', (tester) async {
       await tester.pumpWidget(buildTestableWidget(SplashScreenPage()));
-      final backgroundFinder =
+      final backgroundWidget =
           tester.firstWidget(find.byType(Container)) as Container;
       final decorationImage =
-          (backgroundFinder.decoration as BoxDecoration).image;
+          (backgroundWidget.decoration as BoxDecoration).image;
 
       expect(decorationImage.image.runtimeType, AssetImage);
     });
