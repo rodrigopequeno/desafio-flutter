@@ -1,5 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../shared/services/api_characters/api_characters_service.dart';
+import '../../shared/services/api_favorites/api_favorites_service.dart';
+import '../../shared/services/api_favorites/interceptors/api_favorites_interceptor.dart';
 import 'characters_controller.dart';
 import 'characters_details/characters_details_controller.dart';
 import 'characters_details/characters_details_page.dart';
@@ -12,6 +15,9 @@ class CharactersModule extends ChildModule {
         $CharactersDetailsController,
         $CharactersRepository,
         $CharactersController,
+        $ApiFavoritesService,
+        $ApiCharactersService,
+        $ApiFavoritesInterceptor,
       ];
 
   @override
