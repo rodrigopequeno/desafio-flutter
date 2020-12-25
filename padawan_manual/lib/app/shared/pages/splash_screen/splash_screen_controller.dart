@@ -13,7 +13,7 @@ part 'splash_screen_controller.g.dart';
 class SplashScreenController = _SplashScreenControllerBase
     with _$SplashScreenController;
 
-abstract class _SplashScreenControllerBase with Store {
+abstract class _SplashScreenControllerBase extends Disposable with Store {
   final AppController _appController;
 
   @observable
@@ -22,6 +22,9 @@ abstract class _SplashScreenControllerBase with Store {
   @observable
   bool _timerOverflow = false;
 
+  Timer timer;
+  Timer timerOverflow;
+
   _SplashScreenControllerBase(this._appController) {
     setupTimer();
     setupTimerOverflow();
@@ -29,16 +32,22 @@ abstract class _SplashScreenControllerBase with Store {
   }
 
   void setupTimer() async {
-    Timer(Duration(seconds: 3), () => _timer = true);
+    timer = Timer(Duration(seconds: 3), () => _timer = true);
   }
 
   void setupTimerOverflow() async {
-    Timer(Duration(seconds: 6), () => _timerOverflow = true);
+    timerOverflow = Timer(Duration(seconds: 6), () => _timerOverflow = true);
   }
 
   void setupReactions() async {
     when((_) => (_appController.isReady && _timer || _timerOverflow), () {
       Modular.to.pushReplacementNamed('/character');
     });
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    timerOverflow.cancel();
   }
 }
