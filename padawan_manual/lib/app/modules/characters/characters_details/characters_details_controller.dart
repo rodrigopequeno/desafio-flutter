@@ -28,7 +28,7 @@ abstract class _CharactersDetailsControllerBase with Store {
   Future<void> setDetailsCharacter(CharacterModel characterModel) async {
     try {
       await _repository
-          .fetchCharacterHomeWord(characterModel.homeWorldUrl)
+          .fetchCharacterHomeWorld(characterModel.homeWorldUrl)
           .then((value) => characterModel.homeWorld = value);
       characterModel.species = <String>[];
       for (var speciesUrl in characterModel.speciesUrl) {

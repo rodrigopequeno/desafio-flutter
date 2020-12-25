@@ -20,7 +20,7 @@ class CharactersRepository implements ICharactersRepository {
   }
 
   @override
-  Future fetchCharacterHomeWord(String url) async {
+  Future fetchCharacterHomeWorld(String url) async {
     final response =
         await clientCharacter.get("", options: RequestOptions(baseUrl: "$url"));
     return response.data['name'];

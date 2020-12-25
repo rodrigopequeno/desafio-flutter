@@ -1,29 +1,39 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:dio/dio.dart';
+import 'package:padawan_manual/app/modules/characters/models/character/character_model.dart';
+import 'package:padawan_manual/app/modules/characters/repositories/interfaces/characters_repository_interface.dart';
 
-class MockClient extends Mock implements Dio {}
+import '../../../mocks/characters_repository_mock.dart';
 
 void main() {
-  // ICharactersRepository repository;
-  // MockClient client;
+  ICharactersRepository repository;
 
   setUp(() {
-    // client = MockClient();
-    // repository = CharactersRepository(client);
+    repository = CharacterRepositoryMock();
   });
 
   group('CharactersRepository Test', () {
-    //  test("First Test", () {
-    //    expect(repository, isInstanceOf<CharactersRepository>());
-    //  });
+    test("Creation of the CharactersRepository instance", () {
+      expect(repository, isInstanceOf<ICharactersRepository>());
+    });
 
-    test('returns a Post if the http call completes successfully', () async {
-      //    when(client.get('https://jsonplaceholder.typicode.com/posts/1'))
-      //        .thenAnswer((_) async =>
-      //            Response(data: {'title': 'Test'}, statusCode: 200));
-      //    Map<String, dynamic> data = await repository.fetchPost(client);
-      //    expect(data['title'], 'Test');
+    test('return Character HomeWorld', () async {
+      final homeWorld = await repository.fetchCharacterHomeWorld("url");
+      expect(homeWorld, "Tatooine");
+    });
+
+    test('return Character Species', () async {
+      final species = await repository.fetchCharacterSpecies("url");
+      expect(species, "Human");
+    });
+
+    test('return List Characters', () async {
+      final characters = await repository.fetchCharacters();
+      expect(characters.runtimeType, List<CharacterModel>.from([]).runtimeType);
+    });
+
+    test('return message after bookmark', () async {
+      final message = await repository.saveFavorite(0);
+      expect(message, "May the force be with you");
     });
   });
 }
