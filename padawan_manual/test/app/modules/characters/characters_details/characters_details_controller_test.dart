@@ -55,7 +55,6 @@ void main() {
       speciesUrl: ["https://swapi.dev/api/species/1/"],
       url: "https://swapi.dev/api/people/1/",
       id: 0,
-      isFavorite: true,
     );
   });
 

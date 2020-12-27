@@ -92,7 +92,7 @@ abstract class _CharactersControllerBase with Store {
   @action
   void setCharacters(List<CharacterModel> value) {
     characters = value;
-    _localStorage.characters = characters.asObservable();
+    _localStorage.setCharacters(characters);
   }
 
   Future<void> setFavorite(CharacterModel character) async {
@@ -116,10 +116,10 @@ abstract class _CharactersControllerBase with Store {
     } else {
       favorites.remove(character.id);
       errorSavingFavorites.remove(character.id);
-      _localStorage.errorSavingFavorites = errorSavingFavorites;
+      _localStorage.setErrorSavingFavorites(errorSavingFavorites);
       favoriteMessage = "${character.name} removed from favorites";
     }
-    _localStorage.favorites = favorites;
+    _localStorage.setFavorites(favorites);
 
     Fluttertoast.showToast(
       msg: favoriteMessage,
@@ -152,7 +152,7 @@ abstract class _CharactersControllerBase with Store {
                 .toList()
                 .asObservable();
             characters.addAll(filtered);
-            _localStorage.characters = characters;
+            _localStorage.setCharacters(characters);
           } else {
             setCharacters(newCharacters);
           }
@@ -174,7 +174,7 @@ abstract class _CharactersControllerBase with Store {
 
   Future<void> resendRequestFavoriteError() async {
     var currentErrorFavorites = _localStorage.errorSavingFavorites;
-    _localStorage.errorSavingFavorites = <int>{};
+    _localStorage.setErrorSavingFavorites(<int>{});
     for (var indexFavorite in currentErrorFavorites) {
       try {
         await _repository.saveFavorite(indexFavorite);

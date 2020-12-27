@@ -80,8 +80,8 @@ void main() {
       var requirements = [
         "#${characterModel.id}",
         "${characterModel.name}",
-        "${characterModel.height.toFirstLetterUpperCase()}cm",
-        "${characterModel.mass.toFirstLetterUpperCase()}kg",
+        "${characterModel.height.toFirstLetterUpperCase()}",
+        "${characterModel.mass.toFirstLetterUpperCase()}",
         "${characterModel.hairColor.toFirstLetterUpperCase()}",
         "${characterModel.skinColor.toFirstLetterUpperCase()}",
         "${characterModel.eyeColor.toFirstLetterUpperCase()}",

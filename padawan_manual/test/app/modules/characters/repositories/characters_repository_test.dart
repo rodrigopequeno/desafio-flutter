@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:padawan_manual/app/modules/characters/models/character/character_model.dart';
 import 'package:padawan_manual/app/modules/characters/repositories/interfaces/characters_repository_interface.dart';
 
 import '../../../mocks/characters_repository_mock.dart';
@@ -26,9 +25,9 @@ void main() {
       expect(species, "Human");
     });
 
-    test('return List Characters', () async {
+    test('return Map Result with Info Characters', () async {
       final characters = await repository.fetchCharacters();
-      expect(characters.runtimeType, List<CharacterModel>.from([]).runtimeType);
+      expect(characters.runtimeType, Map<String, dynamic>.from({}).runtimeType);
     });
 
     test('return message after bookmark', () async {

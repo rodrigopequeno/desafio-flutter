@@ -49,7 +49,7 @@ class HiveService implements ILocalStorageService {
   }
 
   @override
-  set characters(List characters) {
+  void setCharacters(List characters) {
     var box = Hive.box(_boxCharacters);
     box.put(_boxCharacters, characters);
   }
@@ -62,7 +62,7 @@ class HiveService implements ILocalStorageService {
   }
 
   @override
-  set favorites(Set favorites) {
+  void setFavorites(Set favorites) {
     var convertToList = List<int>.from(favorites);
     var box = Hive.box(_boxFavorites);
     box.put(_boxFavorites, convertToList);
@@ -76,7 +76,7 @@ class HiveService implements ILocalStorageService {
   }
 
   @override
-  set errorSavingFavorites(Set favorites) {
+  void setErrorSavingFavorites(Set favorites) {
     var convertToList = List<int>.from(favorites);
     var box = Hive.box(_boxFavorites);
     box.put(_keyErrorSavingFavorites, convertToList);

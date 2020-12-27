@@ -24,6 +24,9 @@ class LocalStorageServiceMock extends Mock implements ILocalStorageService {
     );
     when(favorites).thenReturn(<int>{0});
     when(errorSavingFavorites).thenReturn(<int>{0});
+    when(setCharacters(any)).thenReturn(null);
+    when(setFavorites(any)).thenReturn(null);
+    when(setErrorSavingFavorites(any)).thenReturn(null);
     when(initialize()).thenAnswer((_) async => null);
     when(clearLocalData()).thenAnswer((_) => null);
   }

@@ -20,7 +20,7 @@ class ApiFavoritesInterceptor implements Interceptor {
       var data = regExpId.stringMatch(err.request.path);
       var index = int.tryParse(data);
       errorList.add(index);
-      _localStorage.errorSavingFavorites = errorList;
+      _localStorage.setErrorSavingFavorites(errorList);
     }
     return err;
   }

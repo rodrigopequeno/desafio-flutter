@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../shared/widgets/app_bar/app_bar_widget.dart';
 import '../../shared/widgets/button/button_widget.dart';
 import 'characters_controller.dart';
+import 'widgets/character/character_widget.dart';
 
 class CharactersPage extends StatefulWidget {
   final String title;
@@ -144,24 +145,11 @@ class _CharactersPageState
                           }
                         }
                         var character = characters[index];
-                        return ListTile(
-                          onTap: () {
-                            Modular.to.pushNamed('/character/details',
-                                arguments: character);
+                        return CharacterWidget(
+                          characterModel: character,
+                          onFavorite: () async {
+                            await controller.setFavorite(character);
                           },
-                          title: Text("${character.name}"),
-                          subtitle: Text(
-                              """Height: ${character.height} - Gender: ${character.gender} - Mass: ${character.mass}"""),
-                          trailing: Observer(
-                            builder: (context) => IconButton(
-                              icon: character.isFavorite
-                                  ? Icon(Icons.favorite)
-                                  : Icon(Icons.favorite_border),
-                              onPressed: () async {
-                                await controller.setFavorite(character);
-                              },
-                            ),
-                          ),
                         );
                       },
                     ),
