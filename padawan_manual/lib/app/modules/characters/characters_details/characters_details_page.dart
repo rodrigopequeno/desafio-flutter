@@ -170,7 +170,7 @@ class _CharactersDetailsPageState
                         style: _textStyle,
                       ),
                       Text(
-                        """Weight: ${character.mass}kg""",
+                        """Mass: ${character.mass}kg""",
                         style: _textStyle,
                       ),
                       Text(
@@ -194,7 +194,7 @@ class _CharactersDetailsPageState
                         style: _textStyle,
                       ),
                       Text(
-                        """Planet Natal: ${character.homeWorld}""",
+                        """Home World: ${character.homeWorld}""",
                         style: _textStyle,
                       ),
                       Text(

@@ -4,8 +4,8 @@ import 'package:padawan_manual/app/shared/services/local_storage/interfaces/loca
 
 class LocalStorageServiceMock extends Mock implements ILocalStorageService {
   LocalStorageServiceMock() {
-    when(characters).thenAnswer(
-      (_) => <CharacterModel>[
+    when(characters).thenReturn(
+      <CharacterModel>[
         CharacterModel(
           name: "Luke Skywalker",
           height: "172",
@@ -22,8 +22,8 @@ class LocalStorageServiceMock extends Mock implements ILocalStorageService {
         )
       ],
     );
-    when(favorites).thenAnswer((_) => <int>{0});
-    when(errorSavingFavorites).thenAnswer((_) => <int>{0});
+    when(favorites).thenReturn(<int>{0});
+    when(errorSavingFavorites).thenReturn(<int>{0});
     when(initialize()).thenAnswer((_) async => null);
     when(clearLocalData()).thenAnswer((_) => null);
   }

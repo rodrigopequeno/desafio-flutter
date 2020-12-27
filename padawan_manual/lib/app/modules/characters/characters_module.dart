@@ -8,12 +8,14 @@ import 'characters_details/characters_details_controller.dart';
 import 'characters_details/characters_details_page.dart';
 import 'characters_page.dart';
 import 'repositories/characters_repository.dart';
+import 'repositories/interfaces/characters_repository_interface.dart';
 
 class CharactersModule extends ChildModule {
   @override
   List<Bind> get binds => [
         $CharactersDetailsController,
-        $CharactersRepository,
+        Bind<ICharactersRepository>(
+            (i) => CharactersRepository(i.get(), i.get())),
         $CharactersController,
         $ApiFavoritesService,
         $ApiCharactersService,

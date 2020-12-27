@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobx/mobx.dart';
+
 import '../characters_controller.dart';
 import '../models/character/character_model.dart';
-import '../repositories/characters_repository.dart';
+import '../repositories/interfaces/characters_repository_interface.dart';
 
 part 'characters_details_controller.g.dart';
 
@@ -12,7 +13,7 @@ class CharactersDetailsController = _CharactersDetailsControllerBase
     with _$CharactersDetailsController;
 
 abstract class _CharactersDetailsControllerBase with Store {
-  final CharactersRepository _repository;
+  final ICharactersRepository _repository;
   final CharactersController _charactersController;
 
   _CharactersDetailsControllerBase(

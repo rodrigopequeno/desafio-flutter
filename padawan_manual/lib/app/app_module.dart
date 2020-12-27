@@ -8,12 +8,13 @@ import 'modules/characters/models/character/character_model.dart';
 import 'shared/pages/splash_screen/splash_screen_controller.dart';
 import 'shared/pages/splash_screen/splash_screen_page.dart';
 import 'shared/services/local_storage/hive_service.dart';
+import 'shared/services/local_storage/interfaces/local_storage_service_interface.dart';
 
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
         $CharacterModelAdapter,
-        $HiveService,
+        Bind<ILocalStorageService>((i) => HiveService(i.get())),
         $SplashScreenController,
         $AppController,
       ];

@@ -7,7 +7,7 @@ import '../../local_storage/interfaces/local_storage_service_interface.dart';
 part 'api_favorites_interceptor.g.dart';
 
 @Injectable()
-class ApiFavoritesInterceptor extends Interceptor {
+class ApiFavoritesInterceptor implements Interceptor {
   final regExpId = RegExp(r"\d{1,3}");
   final ILocalStorageService _localStorage;
 
@@ -32,5 +32,10 @@ class ApiFavoritesInterceptor extends Interceptor {
       options.headers = {"Prefer": "status=400"};
     }
     return options;
+  }
+
+  @override
+  Future onResponse(Response response) async {
+    return response;
   }
 }

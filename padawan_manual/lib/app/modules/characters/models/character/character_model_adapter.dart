@@ -1,5 +1,11 @@
 part of 'character_model.dart';
 
+final $CharacterModelAdapter = BindInject(
+  (i) => CharacterModelAdapter(),
+  singleton: true,
+  lazy: true,
+);
+
 class CharacterModelAdapter extends TypeAdapter<CharacterModel> {
   @override
   final int typeId = 0;

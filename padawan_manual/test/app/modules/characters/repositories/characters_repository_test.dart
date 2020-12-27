@@ -8,7 +8,7 @@ void main() {
   ICharactersRepository repository;
 
   setUp(() {
-    repository = CharacterRepositoryMock();
+    repository = CharactersRepositoryMock();
   });
 
   group('CharactersRepository Test', () {

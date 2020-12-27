@@ -2,8 +2,8 @@ import 'package:mockito/mockito.dart';
 import 'package:padawan_manual/app/modules/characters/models/character/character_model.dart';
 import 'package:padawan_manual/app/modules/characters/repositories/interfaces/characters_repository_interface.dart';
 
-class CharacterRepositoryMock extends Mock implements ICharactersRepository {
-  CharacterRepositoryMock() {
+class CharactersRepositoryMock extends Mock implements ICharactersRepository {
+  CharactersRepositoryMock() {
     var defaultModel = CharacterModel(
       name: "Luke Skywalker",
       height: "172",
@@ -20,11 +20,11 @@ class CharacterRepositoryMock extends Mock implements ICharactersRepository {
       isFavorite: true,
     );
 
-    when(fetchCharacterHomeWorld("url")).thenAnswer(
+    when(fetchCharacterHomeWorld(any)).thenAnswer(
       (_) async => Future.value("Tatooine"),
     );
 
-    when(fetchCharacterSpecies("url")).thenAnswer(
+    when(fetchCharacterSpecies(any)).thenAnswer(
       (_) async => Future.value("Human"),
     );
 
@@ -33,10 +33,8 @@ class CharacterRepositoryMock extends Mock implements ICharactersRepository {
         Future.value([defaultModel]),
       ),
     );
-    when(saveFavorite(0)).thenAnswer(
-      (_) async => Future.value(
-        Future.value("May the force be with you"),
-      ),
+    when(saveFavorite(any)).thenAnswer(
+      (_) async => Future<String>.value("May the force be with you"),
     );
   }
 }

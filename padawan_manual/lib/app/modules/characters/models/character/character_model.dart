@@ -40,7 +40,7 @@ abstract class _CharacterModelBase with Store {
     this.homeWorld,
     this.species,
     this.url,
-    this.isFavorite,
+    this.isFavorite = false,
     this.homeWorldUrl,
     this.speciesUrl,
   });

@@ -8,7 +8,7 @@ part of 'characters_details_controller.dart';
 
 final $CharactersDetailsController = BindInject(
   (i) => CharactersDetailsController(
-      i<CharactersRepository>(), i<CharactersController>()),
+      i<ICharactersRepository>(), i<CharactersController>()),
   singleton: true,
   lazy: true,
 );
