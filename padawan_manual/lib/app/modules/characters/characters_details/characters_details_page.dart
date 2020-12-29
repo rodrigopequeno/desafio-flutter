@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../shared/utils/extensions/string.dart';
+import '../../../shared/utils/extensions/string/string.dart';
 import '../../../shared/widgets/app_bar/app_bar_widget.dart';
+import '../../../shared/widgets/background/background_widget.dart';
 import '../../../shared/widgets/button/button_widget.dart';
 import '../models/character/character_model.dart';
 import 'characters_details_controller.dart';
@@ -31,61 +32,65 @@ class _CharactersDetailsPageState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBarWidget(
-        actions: [
-          Observer(
-            builder: (context) => IconButton(
-              icon: widget.character.isFavorite
-                  ? Icon(Icons.favorite)
-                  : Icon(Icons.favorite_border),
-              onPressed: () async {
-                await controller.setFavorite(widget.character);
-              },
+    return BackgroundWidget(
+      opacity: 0.8,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBarWidget(
+          actions: [
+            Observer(
+              builder: (context) => IconButton(
+                icon: widget.character.isFavorite
+                    ? Icon(Icons.favorite)
+                    : Icon(Icons.favorite_border),
+                onPressed: () async {
+                  await controller.setFavorite(widget.character);
+                },
+              ),
             ),
-          ),
-        ],
-      ),
-      body: Observer(builder: (_) {
-        var character = widget.character;
-        if (controller.errorMessage != null) {
-          return Center(
+          ],
+        ),
+        body: Observer(builder: (_) {
+          var character = widget.character;
+          if (controller.errorMessage != null) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    controller.errorMessage,
+                    style: TextStyle(fontSize: 22),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ButtonWidget(
+                      text: "Update",
+                      onPressed: () async {
+                        await controller.setDetailsCharacter(widget.character);
+                      })
+                ],
+              ),
+            );
+          } else if (!controller.loaded) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  controller.errorMessage,
-                  style: TextStyle(fontSize: 22),
-                ),
+              children: <Widget>[
+                _header(),
+                _details(character),
                 SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
-                ButtonWidget(
-                    text: "Update",
-                    onPressed: () async {
-                      await controller.setDetailsCharacter(widget.character);
-                    })
               ],
             ),
           );
-        } else if (!controller.loaded) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
-        return SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              _header(),
-              _details(character),
-              SizedBox(
-                height: 30,
-              ),
-            ],
-          ),
-        );
-      }),
+        }),
+      ),
     );
   }
 
@@ -144,69 +149,66 @@ class _CharactersDetailsPageState
         Theme.of(context).textTheme.bodyText2.copyWith(fontSize: 16);
     return Padding(
       padding: const EdgeInsets.all(15),
-      child: Card(
-        color: Theme.of(context).cardColor.withOpacity(0.7),
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Text("Information",
-                            style: Theme.of(context).textTheme.headline6),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        """Height: ${character.height}cm""",
-                        style: _textStyle,
-                      ),
-                      Text(
-                        """Mass: ${character.mass}kg""",
-                        style: _textStyle,
-                      ),
-                      Text(
-                        """Gender: ${character.gender.toFirstLetterUpperCase()}""",
-                        style: _textStyle,
-                      ),
-                      Text(
-                        """Birth Year: ${character.birthYear}""",
-                        style: _textStyle,
-                      ),
-                      Text(
-                        """Hair Color: ${character.hairColor.toFirstLetterUpperCase()}""",
-                        style: _textStyle,
-                      ),
-                      Text(
-                        """Skin Color: ${character.skinColor.toFirstLetterUpperCase()}""",
-                        style: _textStyle,
-                      ),
-                      Text(
-                        """Eye Color: ${character.eyeColor.toFirstLetterUpperCase()}""",
-                        style: _textStyle,
-                      ),
-                      Text(
-                        """Home World: ${character.homeWorld}""",
-                        style: _textStyle,
-                      ),
-                      Text(
-                        """Species: ${character.species.isEmpty ? "Indeterminate" : character.species.toString().replaceAll("[", "").replaceAll("]", "")}""",
-                        style: _textStyle,
-                      ),
-                    ],
-                  ),
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Text("Information",
+                          style: Theme.of(context).textTheme.headline6),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Text(
+                      """Height: ${character.height}cm""",
+                      style: _textStyle,
+                    ),
+                    Text(
+                      """Mass: ${character.mass}kg""",
+                      style: _textStyle,
+                    ),
+                    Text(
+                      """Gender: ${character.gender.toFirstLetterUpperCase()}""",
+                      style: _textStyle,
+                    ),
+                    Text(
+                      """Birth Year: ${character.birthYear}""",
+                      style: _textStyle,
+                    ),
+                    Text(
+                      """Hair Color: ${character.hairColor.toFirstLetterUpperCase()}""",
+                      style: _textStyle,
+                    ),
+                    Text(
+                      """Skin Color: ${character.skinColor.toFirstLetterUpperCase()}""",
+                      style: _textStyle,
+                    ),
+                    Text(
+                      """Eye Color: ${character.eyeColor.toFirstLetterUpperCase()}""",
+                      style: _textStyle,
+                    ),
+                    Text(
+                      """Home World: ${character.homeWorld}""",
+                      style: _textStyle,
+                    ),
+                    Text(
+                      """Species: ${character.species.isEmpty ? "Indeterminate" : character.species.toString().replaceAll("[", "").replaceAll("]", "")}""",
+                      style: _textStyle,
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

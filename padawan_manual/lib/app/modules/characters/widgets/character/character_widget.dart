@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../../../shared/utils/extensions/string/string.dart';
 import '../../models/character/character_model.dart';
 
 class CharacterWidget extends StatelessWidget {
@@ -17,7 +19,7 @@ class CharacterWidget extends StatelessWidget {
       },
       title: Text("${characterModel.name}"),
       subtitle: Text(
-          """Height: ${characterModel.height} - Gender: ${characterModel.gender} - Mass: ${characterModel.mass}"""),
+          """Gender: ${characterModel.gender.toFirstLetterUpperCase()} - Height: ${characterModel.height} - Mass: ${characterModel.mass}"""),
       trailing: Observer(
         builder: (context) => IconButton(
           icon: characterModel.isFavorite
@@ -26,6 +28,10 @@ class CharacterWidget extends StatelessWidget {
           onPressed: onFavorite,
         ),
       ),
+      leading: Container(
+          width: 40,
+          height: 40,
+          child: Image.asset('assets/images/yin-yang.png')),
     );
   }
 }

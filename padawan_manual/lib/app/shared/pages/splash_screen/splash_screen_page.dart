@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import '../../widgets/background/background_widget.dart';
 
 import 'splash_screen_controller.dart';
 
@@ -28,17 +29,11 @@ class _SplashScreenPageState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/background.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Container(
-          color: Colors.black.withOpacity(0.7),
+    return BackgroundWidget(
+      opacity: 0.7,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Container(
           child: Center(
             child: SizedBox(
               height: 200,

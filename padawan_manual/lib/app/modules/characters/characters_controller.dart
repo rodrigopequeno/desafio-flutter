@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../shared/services/local_storage/interfaces/local_storage_service_interface.dart';
-import '../../shared/utils/extensions/string.dart';
+import '../../shared/utils/extensions/string/string.dart';
 import 'models/character/character_model.dart';
 import 'repositories/interfaces/characters_repository_interface.dart';
 

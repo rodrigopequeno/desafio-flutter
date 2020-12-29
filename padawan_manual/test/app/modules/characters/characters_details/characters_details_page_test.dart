@@ -9,7 +9,7 @@ import 'package:padawan_manual/app/modules/characters/characters_details/charact
 import 'package:padawan_manual/app/modules/characters/characters_details/characters_details_page.dart';
 import 'package:padawan_manual/app/modules/characters/characters_module.dart';
 import 'package:padawan_manual/app/modules/characters/models/character/character_model.dart';
-import 'package:padawan_manual/app/shared/utils/extensions/string.dart';
+import 'package:padawan_manual/app/shared/utils/extensions/string/string.dart';
 import 'package:padawan_manual/app/modules/characters/repositories/interfaces/characters_repository_interface.dart';
 import 'package:padawan_manual/app/shared/services/api_characters/api_characters_service.dart';
 import 'package:padawan_manual/app/shared/services/api_favorites/api_favorites_service.dart';

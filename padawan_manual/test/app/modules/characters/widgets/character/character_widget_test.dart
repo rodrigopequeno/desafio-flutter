@@ -5,7 +5,7 @@ import 'package:padawan_manual/app/modules/characters/characters_controller.dart
 import 'package:padawan_manual/app/modules/characters/models/character/character_model.dart';
 
 import 'package:padawan_manual/app/modules/characters/widgets/character/character_widget.dart';
-import 'package:padawan_manual/app/shared/utils/extensions/string.dart';
+import 'package:padawan_manual/app/shared/utils/extensions/string/string.dart';
 
 import '../../../../mocks/characters_repository_mock.dart';
 import '../../../../mocks/local_storage_mock.dart';

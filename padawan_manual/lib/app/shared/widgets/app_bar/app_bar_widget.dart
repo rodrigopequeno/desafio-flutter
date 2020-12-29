@@ -11,7 +11,7 @@ class AppBarWidget extends PreferredSize {
   final List<Widget> actions;
 
   AppBarWidget({
-    this.elevation,
+    this.elevation = 7,
     this.height = kToolbarHeight,
     this.back = true,
     this.content,
@@ -27,18 +27,21 @@ class AppBarWidget extends PreferredSize {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: back,
-      backgroundColor: Colors.black,
+      shadowColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(radius),
           bottomRight: Radius.circular(radius),
         ),
       ),
+      flexibleSpace: Image(
+        image: AssetImage('assets/images/background.jpg'),
+        fit: BoxFit.cover,
+      ),
       title: Image.asset(
         'assets/images/logo.png',
         height: 40,
       ),
-      flexibleSpace: content,
       actions: actions,
       elevation: elevation,
       centerTitle: true,
