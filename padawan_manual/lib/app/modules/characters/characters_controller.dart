@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../shared/services/local_storage/interfaces/local_storage_service_interface.dart';
+import '../../shared/utils/enums/filter_enum.dart';
 import '../../shared/utils/extensions/string/string.dart';
 import 'models/character/character_model.dart';
 import 'repositories/interfaces/characters_repository_interface.dart';
@@ -32,7 +33,7 @@ abstract class _CharactersControllerBase with Store {
   String search;
 
   @observable
-  int filter = 0;
+  FilterEnum filter = FilterEnum.all;
 
   @observable
   String errorMessage;
@@ -56,12 +57,12 @@ abstract class _CharactersControllerBase with Store {
   @computed
   ObservableList<CharacterModel> get charactersFiltered {
     var filtered = characters;
-    if (filter == 1) {
+    if (filter == FilterEnum.favorite) {
       filtered = characters
           .where((element) => element.isFavorite)
           .toList()
           .asObservable();
-    } else if (filter == 2) {
+    } else if (filter == FilterEnum.notFavorite) {
       filtered = characters
           .where((element) => !element.isFavorite)
           .toList()
@@ -85,7 +86,7 @@ abstract class _CharactersControllerBase with Store {
   }
 
   @action
-  void setFilter(int value) {
+  void setFilter(FilterEnum value) {
     filter = value;
   }
 

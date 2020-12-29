@@ -76,13 +76,13 @@ mixin _$CharactersController on _CharactersControllerBase, Store {
   final _$filterAtom = Atom(name: '_CharactersControllerBase.filter');
 
   @override
-  int get filter {
+  FilterEnum get filter {
     _$filterAtom.reportRead();
     return super.filter;
   }
 
   @override
-  set filter(int value) {
+  set filter(FilterEnum value) {
     _$filterAtom.reportWrite(value, super.filter, () {
       super.filter = value;
     });
@@ -135,7 +135,7 @@ mixin _$CharactersController on _CharactersControllerBase, Store {
   }
 
   @override
-  void setFilter(int value) {
+  void setFilter(FilterEnum value) {
     final _$actionInfo = _$_CharactersControllerBaseActionController
         .startAction(name: '_CharactersControllerBase.setFilter');
     try {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import '../../shared/utils/enums/filter_enum.dart';
 
 import '../../shared/widgets/app_bar/app_bar_widget.dart';
 import '../../shared/widgets/background/background_widget.dart';
@@ -64,21 +65,15 @@ class _CharactersPageState
             Expanded(
               flex: 1,
               child: Observer(builder: (_) {
-                return DropdownButton(
-                  items: [
-                    DropdownMenuItem(
-                      child: Text("All"),
-                      value: 0,
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Favorite"),
-                      value: 1,
-                    ),
-                    DropdownMenuItem(
-                      child: Text("No favorite"),
-                      value: 2,
-                    ),
-                  ],
+                return DropdownButton<FilterEnum>(
+                  items: FilterEnum.values
+                      .map(
+                        (e) => DropdownMenuItem(
+                          child: Text(e.description),
+                          value: e,
+                        ),
+                      )
+                      .toList(),
                   onChanged: controller.setFilter,
                   value: controller.filter,
                 );
