@@ -18,20 +18,35 @@ class CharacterWidget extends StatelessWidget {
         Modular.to.pushNamed('/character/details', arguments: characterModel);
       },
       title: Text("${characterModel.name}"),
-      subtitle: Text(
-          """Gender: ${characterModel.gender.toFirstLetterUpperCase()} - Height: ${characterModel.height} - Mass: ${characterModel.mass}"""),
-      trailing: Observer(
-        builder: (context) => IconButton(
-          icon: characterModel.isFavorite
-              ? Icon(Icons.favorite)
-              : Icon(Icons.favorite_border),
-          onPressed: onFavorite,
-        ),
-      ),
+      subtitle: Text(_subtitleFormatted),
+      trailing: Observer(builder: (context) => _buildButtonFavorite),
       leading: Container(
           width: 40,
           height: 40,
           child: Image.asset('assets/images/yin-yang.png')),
     );
   }
+
+  String get _subtitleFormatted {
+    var gender = characterModel.gender == "n/a"
+        ? "N/A"
+        : "${characterModel.gender.toFirstLetterUpperCase()}";
+    var height = characterModel.height == "unknown"
+        ? "Unknown"
+        : "${characterModel.height}cm";
+    var mass = characterModel.mass == "unknown"
+        ? "Unknown"
+        : "${characterModel.mass}kg";
+    return """Gender: $gender\nHeight: $height - Mass: $mass""";
+  }
+
+  Widget get _buildButtonFavorite => IconButton(
+        icon: characterModel.isFavorite
+            ? Icon(
+                Icons.favorite,
+                color: Colors.red,
+              )
+            : Icon(Icons.favorite_border),
+        onPressed: onFavorite,
+      );
 }

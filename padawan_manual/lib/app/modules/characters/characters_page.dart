@@ -48,40 +48,44 @@ class _CharactersPageState
         ),
       );
 
-  Widget _buildTopBar() => Padding(
-        padding: const EdgeInsets.all(10),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: TextField(
-                decoration: InputDecoration(hintText: " Search by name"),
-                onChanged: controller.setSearch,
+  Widget _buildTopBar() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 25, left: 10, right: 10, bottom: 10),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: TextField(
+              onChanged: controller.setSearch,
+              decoration: InputDecoration(
+                hintText: " Search by name",
               ),
             ),
-            SizedBox(
-              width: 20,
-            ),
-            Expanded(
-              flex: 1,
-              child: Observer(builder: (_) {
-                return DropdownButton<FilterEnum>(
-                  items: FilterEnum.values
-                      .map(
-                        (e) => DropdownMenuItem(
-                          child: Text(e.description),
-                          value: e,
-                        ),
-                      )
-                      .toList(),
-                  onChanged: controller.setFilter,
-                  value: controller.filter,
-                );
-              }),
-            )
-          ],
-        ),
-      );
+          ),
+          SizedBox(
+            width: 20,
+          ),
+          Expanded(
+            flex: 2,
+            child: Observer(builder: (_) {
+              return DropdownButtonFormField<FilterEnum>(
+                items: FilterEnum.values
+                    .map(
+                      (e) => DropdownMenuItem(
+                        child: Text(e.description),
+                        value: e,
+                      ),
+                    )
+                    .toList(),
+                onChanged: controller.setFilter,
+                value: controller.filter,
+              );
+            }),
+          )
+        ],
+      ),
+    );
+  }
 
   Widget _buildListBuilder() => Expanded(
         child: Observer(
