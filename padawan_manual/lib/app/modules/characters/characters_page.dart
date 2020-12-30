@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../shared/utils/enums/filter_enum.dart';
 
 import '../../shared/widgets/app_bar/app_bar_widget.dart';
@@ -164,7 +165,14 @@ class _CharactersPageState
                   return CharacterWidget(
                     characterModel: character,
                     onFavorite: () async {
-                      await controller.setFavorite(character);
+                      var favoriteMessage =
+                          await controller.setFavorite(character);
+                      Fluttertoast.showToast(
+                        msg: favoriteMessage,
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        fontSize: 16.0,
+                      );
                     },
                   );
                 },

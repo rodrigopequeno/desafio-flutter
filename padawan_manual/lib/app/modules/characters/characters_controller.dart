@@ -91,7 +91,7 @@ abstract class _CharactersControllerBase with Store {
     _localStorage.setCharacters(characters);
   }
 
-  Future<void> setFavorite(CharacterModel character) async {
+  Future<String> setFavorite(CharacterModel character) async {
     var favorites = _localStorage.favorites;
     var errorSavingFavorites = _localStorage.errorSavingFavorites;
     character.setFavorite();
@@ -116,13 +116,7 @@ abstract class _CharactersControllerBase with Store {
       favoriteMessage = "${character.name} removed from favorites";
     }
     _localStorage.setFavorites(favorites);
-
-    Fluttertoast.showToast(
-      msg: favoriteMessage,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      fontSize: 16.0,
-    );
+    return favoriteMessage;
   }
 
   Future<void> getCharactersApi({bool forceNetwork = false}) async {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../shared/utils/extensions/string/string.dart';
 import '../../../shared/widgets/app_bar/app_bar_widget.dart';
@@ -186,7 +187,13 @@ class _CharactersDetailsPageState
               )
             : Icon(Icons.favorite_border),
         onPressed: () async {
-          await controller.setFavorite(widget.character);
+          var favoriteMessage = await controller.setFavorite(widget.character);
+          Fluttertoast.showToast(
+            msg: favoriteMessage,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            fontSize: 16.0,
+          );
         },
       );
 

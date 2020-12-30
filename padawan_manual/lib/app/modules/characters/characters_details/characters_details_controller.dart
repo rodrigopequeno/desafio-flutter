@@ -50,7 +50,7 @@ abstract class _CharactersDetailsControllerBase with Store {
     }
   }
 
-  Future<void> setFavorite(CharacterModel character) async {
-    await _charactersController.setFavorite(character);
+  Future<String> setFavorite(CharacterModel character) async {
+    return await _charactersController.setFavorite(character);
   }
 }

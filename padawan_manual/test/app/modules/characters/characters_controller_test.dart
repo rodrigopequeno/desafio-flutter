@@ -11,6 +11,7 @@ import 'package:padawan_manual/app/shared/services/api_characters/api_characters
 import 'package:padawan_manual/app/shared/services/api_favorites/api_favorites_service.dart';
 import 'package:padawan_manual/app/shared/services/api_favorites/interceptors/api_favorites_interceptor.dart';
 import 'package:padawan_manual/app/shared/services/local_storage/interfaces/local_storage_service_interface.dart';
+import 'package:padawan_manual/app/shared/utils/enums/filter_enum.dart';
 
 import '../../app_controller_test.dart';
 import '../../mocks/api_characters_service_mock.dart';
@@ -66,6 +67,17 @@ void main() {
     test("""Data must be saved in a local database.""", () async {
       await charactersController.getCharactersApi(forceNetwork: true);
       verify(localStorageService.setCharacters(any)).called(greaterThan(0));
+    });
+
+    test("""Filtering favorite characters.""", () async {
+      await charactersController.getCharactersApi(forceNetwork: true);
+      var initialSize = charactersController.characters.length;
+      expect(initialSize, isPositive);
+      await charactersController
+          .setFavorite(charactersController.characters.first);
+      await charactersController.setFilter(FilterEnum.favorite);
+      initialSize--;
+      expect(charactersController.charactersFiltered.length, initialSize);
     });
   });
 }
