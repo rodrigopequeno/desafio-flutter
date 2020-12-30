@@ -22,8 +22,6 @@ class CharactersDetailsPage extends StatefulWidget {
 
 class _CharactersDetailsPageState
     extends ModularState<CharactersDetailsPage, CharactersDetailsController> {
-  //use 'controller' variable to access controller
-
   @override
   void initState() {
     controller.setDetailsCharacter(widget.character);
@@ -38,46 +36,16 @@ class _CharactersDetailsPageState
         backgroundColor: Colors.transparent,
         appBar: AppBarWidget(
           actions: [
-            Observer(
-              builder: (context) => IconButton(
-                icon: widget.character.isFavorite
-                    ? Icon(Icons.favorite)
-                    : Icon(Icons.favorite_border),
-                onPressed: () async {
-                  await controller.setFavorite(widget.character);
-                },
-              ),
-            ),
+            Observer(builder: _buildButtonFavorite),
           ],
         ),
         body: Observer(builder: (_) {
           var character = widget.character;
           if (controller.errorMessage != null) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    controller.errorMessage,
-                    style: TextStyle(fontSize: 22),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ButtonWidget(
-                      text: "Update",
-                      onPressed: () async {
-                        await controller.setDetailsCharacter(widget.character);
-                      })
-                ],
-              ),
-            );
+            return _buildErrorPage();
           } else if (!controller.loaded) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return _buildLoading();
           }
-
           return SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -94,16 +62,15 @@ class _CharactersDetailsPageState
     );
   }
 
+  Widget _buildLoading() => Center(
+        child: CircularProgressIndicator(),
+      );
+
   Widget _header() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: Container(
         height: 150,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(50),
-              bottomRight: Radius.circular(50)),
-        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
           child: Row(
@@ -148,69 +115,98 @@ class _CharactersDetailsPageState
     var _textStyle =
         Theme.of(context).textTheme.bodyText2.copyWith(fontSize: 16);
     return Padding(
-      padding: const EdgeInsets.all(15),
-      child: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: Text("Information",
-                          style: Theme.of(context).textTheme.headline6),
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Text(
-                      """Height: ${character.height}cm""",
-                      style: _textStyle,
-                    ),
-                    Text(
-                      """Mass: ${character.mass}kg""",
-                      style: _textStyle,
-                    ),
-                    Text(
-                      """Gender: ${character.gender.toFirstLetterUpperCase()}""",
-                      style: _textStyle,
-                    ),
-                    Text(
-                      """Birth Year: ${character.birthYear}""",
-                      style: _textStyle,
-                    ),
-                    Text(
-                      """Hair Color: ${character.hairColor.toFirstLetterUpperCase()}""",
-                      style: _textStyle,
-                    ),
-                    Text(
-                      """Skin Color: ${character.skinColor.toFirstLetterUpperCase()}""",
-                      style: _textStyle,
-                    ),
-                    Text(
-                      """Eye Color: ${character.eyeColor.toFirstLetterUpperCase()}""",
-                      style: _textStyle,
-                    ),
-                    Text(
-                      """Home World: ${character.homeWorld}""",
-                      style: _textStyle,
-                    ),
-                    Text(
-                      """Species: ${character.species.isEmpty ? "Indeterminate" : character.species.toString().replaceAll("[", "").replaceAll("]", "")}""",
-                      style: _textStyle,
-                    ),
-                  ],
-                ),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Text("Information",
+                        style: Theme.of(context).textTheme.headline6),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Text(
+                    """Height: ${character.height}cm""",
+                    style: _textStyle,
+                  ),
+                  Text(
+                    """Mass: ${character.mass}kg""",
+                    style: _textStyle,
+                  ),
+                  Text(
+                    """Gender: ${character.gender.toFirstLetterUpperCase()}""",
+                    style: _textStyle,
+                  ),
+                  Text(
+                    """Birth Year: ${character.birthYear}""",
+                    style: _textStyle,
+                  ),
+                  Text(
+                    """Hair Color: ${character.hairColor.toFirstLetterUpperCase()}""",
+                    style: _textStyle,
+                  ),
+                  Text(
+                    """Skin Color: ${character.skinColor.toFirstLetterUpperCase()}""",
+                    style: _textStyle,
+                  ),
+                  Text(
+                    """Eye Color: ${character.eyeColor.toFirstLetterUpperCase()}""",
+                    style: _textStyle,
+                  ),
+                  Text(
+                    """Home World: ${character.homeWorld}""",
+                    style: _textStyle,
+                  ),
+                  Text(
+                    """Species: ${character.species.isEmpty ? "Indeterminate" : character.species.toString().replaceAll("[", "").replaceAll("]", "")}""",
+                    style: _textStyle,
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
+
+  Widget _buildButtonFavorite(BuildContext context) => IconButton(
+        icon: widget.character.isFavorite
+            ? Icon(
+                Icons.favorite,
+                color: Colors.red,
+              )
+            : Icon(Icons.favorite_border),
+        onPressed: () async {
+          await controller.setFavorite(widget.character);
+        },
+      );
+
+  Widget _buildErrorPage() => Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              controller.errorMessage,
+              style: TextStyle(fontSize: 22),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ButtonWidget(
+                text: "Update",
+                onPressed: () async {
+                  await controller.setDetailsCharacter(widget.character);
+                })
+          ],
+        ),
+      );
 }
