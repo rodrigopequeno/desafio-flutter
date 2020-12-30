@@ -1,4 +1,4 @@
-enum FilterEnum { all, favorite, notFavorite }
+enum FilterEnum { all, favorite }
 
 extension FilterEnumExtension on FilterEnum {
   String get description {
@@ -8,9 +8,6 @@ extension FilterEnumExtension on FilterEnum {
         break;
       case FilterEnum.favorite:
         return "Favorites";
-        break;
-      case FilterEnum.notFavorite:
-        return "Not favorites";
         break;
     }
     return "";

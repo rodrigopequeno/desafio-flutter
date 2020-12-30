@@ -62,11 +62,6 @@ abstract class _CharactersControllerBase with Store {
           .where((element) => element.isFavorite)
           .toList()
           .asObservable();
-    } else if (filter == FilterEnum.notFavorite) {
-      filtered = characters
-          .where((element) => !element.isFavorite)
-          .toList()
-          .asObservable();
     }
     if (search != null && search.isNotEmpty) {
       return filtered
