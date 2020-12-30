@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../shared/services/local_storage/interfaces/local_storage_service_interface.dart';
